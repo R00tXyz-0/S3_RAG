@@ -1,0 +1,25 @@
+__pycache__/
+*.pyc
+*.pyo
+.Python
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Large extracted diagram images (regenerate via the pipeline)
+data/processed/images/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Secrets: never commit API keys
+.env
+.env.local
+*.env.secret
+
+# Generated pipeline outputs / caches (reproducible; .gitkeep placeholders are kept)
+data/processed/chunks/*.jsonl
+data/processed/evaluation/*.json
+data/processed/vision/
