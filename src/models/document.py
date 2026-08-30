@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 class PageClass(str, Enum):
@@ -28,10 +28,6 @@ class Page:
     content_type: ContentType = ContentType.TEXT
     extraction_status: str = "pending"
     notes: List[str] = field(default_factory=list)
-    visual_text: str = ""
-    has_visual_content: bool = False
-    vision_model: str = ""
-    visual_processing_status: str = ""
 
     def text_for_chunking(self) -> str:
         return self.final_text or self.cleaned_text or self.raw_text
@@ -50,7 +46,8 @@ class Chunk:
     has_code: bool
     token_count: int
     pages: List[int] = field(default_factory=list)
-    has_visual_content: bool = False
+    section: Optional[str] = None
+    subsection: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
 

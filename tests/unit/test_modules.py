@@ -55,15 +55,22 @@ def test_detector_groups_consecutive_titles_and_chapters():
 
 
 def test_metadata_keys():
+    from models.document import ContentType
+
     m = compose_metadata(
         source="s.pdf", page_start=1, page_end=2, chapter="C", slide_title="T",
-        content_type=__import__("models.document", fromlist=["ContentType"]).ContentType.TEXT,
+        content_type=ContentType.TEXT,
         has_code=False, chunk_index=0, pages=[1, 2], token_count=10,
+        chunk_id="s.pdf::chunk-0000", section="Variables", subsection="Declaration",
+        content="Title: C\n\nsome text", code_blocks=0,
     )
-    for k in ["source", "page_start", "page_end", "chapter", "slide_title",
-              "content_type", "has_code", "chunk_index"]:
+    for k in ["chunk_id", "source", "page_start", "page_end", "chapter", "slide_title",
+              "section", "subsection", "content_type", "has_code", "chunk_index",
+              "token_count", "pages", "content", "code_blocks"]:
         assert k in m
-    assert "subsection" not in m
+    # Section / subsection are present (None allowed when unavailable, not invented).
+    assert m["section"] == "Variables"
+    assert m["subsection"] == "Declaration"
     assert "is_ocr" not in m
 
 

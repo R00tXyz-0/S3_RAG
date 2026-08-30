@@ -16,6 +16,7 @@ class ValidationReport:
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
     small_chunks: List[int] = field(default_factory=list)
+    suspicious: List[int] = field(default_factory=list)
     ok: bool = True
 
     def add_error(self, msg: str):
@@ -32,6 +33,7 @@ class ValidationReport:
             "warnings": self.warnings,
             "small_chunk_count": len(self.small_chunks),
             "small_chunk_indices": self.small_chunks,
+            "suspicious_chunk_indices": self.suspicious,
         }
 
 
@@ -77,8 +79,38 @@ def validate(document: Document, config: Config) -> ValidationReport:
             report.add_warning(
                 f"Chunk {c.chunk_index}: below min_tokens ({c.token_count} < {config.chunk.min_tokens})"
             )
+        if c.token_count < config.quality.small_chunk_tokens:
+            report.add_warning(
+                f"Chunk {c.chunk_index}: extremely small ({c.token_count} tokens)"
+            )
+            report.suspicious.append(c.chunk_index)
+        if c.token_count > config.quality.large_chunk_tokens:
+            report.add_warning(
+                f"Chunk {c.chunk_index}: extremely large ({c.token_count} tokens)"
+            )
+            report.suspicious.append(c.chunk_index)
+        if not c.metadata.get("source"):
+            report.add_error(f"Chunk {c.chunk_index}: missing source metadata")
+            report.suspicious.append(c.chunk_index)
         if c.has_code:
             _check_code_integrity(c, report)
+            if _code_block_broken(c):
+                report.add_warning(
+                    f"Chunk {c.chunk_index}: possible broken/unbalanced code block"
+                )
+                report.suspicious.append(c.chunk_index)
+
+    # Missing section info when sections exist somewhere in the document.
+    sections_present = {
+        c.metadata.get("section") for c in document.chunks if c.metadata.get("section")
+    }
+    if sections_present:
+        for c in document.chunks:
+            if not c.metadata.get("section"):
+                report.add_warning(
+                    f"Chunk {c.chunk_index}: missing section metadata"
+                )
+                report.suspicious.append(c.chunk_index)
 
     if not document.chunks:
         report.add_error("No chunks produced")
@@ -101,3 +133,17 @@ def _check_code_integrity(chunk: Chunk, report: ValidationReport) -> None:
                         f"Chunk {chunk.chunk_index}: possible truncated code near '{kw}'"
                     )
             break
+
+
+def _code_block_broken(chunk: Chunk) -> bool:
+    """Heuristic: a chunk flagged as code should have balanced BEGIN/END if it uses them.
+
+    A single BEGIN without a matching END (within a few of each other) strongly suggests
+    the code block was split across chunks.
+    """
+    text = chunk.text.upper()
+    begins = text.count("BEGIN")
+    ends = text.count("END")
+    if begins and ends and abs(begins - ends) <= 3 and begins != ends:
+        return True
+    return False

@@ -16,32 +16,36 @@ def compose_metadata(
     chunk_index: int,
     pages: list,
     token_count: int,
-    has_visual_content: bool = False,
-    vision_model: str = "",
-    visual_processing_status: str = "",
+    *,
+    chunk_id: Optional[str] = None,
+    section: Optional[str] = None,
+    subsection: Optional[str] = None,
+    content: Optional[str] = None,
+    code_blocks: int = 0,
 ) -> Dict[str, Any]:
     """Assemble the required chunk metadata.
 
     Required keys (per spec): source, page_start, page_end, chapter, slide_title,
-    content_type, has_code, chunk_index. Vision fields are added when present.
-    Note: the OCR-specific `is_ocr` field was intentionally removed in a prior cleanup;
-    the analogous information for the rebuilt vision stage is captured by
-    has_visual_content / visual_processing_status instead.
+    content_type, has_code, chunk_index. Structure-aware fields (chunk_id, section,
+    subsection, content, code_blocks) are added; missing values are stored as null
+    rather than invented.
     """
     return {
+        "chunk_id": chunk_id,
         "source": source,
         "page_start": page_start,
         "page_end": page_end,
         "chapter": chapter,
         "slide_title": slide_title,
+        "section": section,
+        "subsection": subsection,
         "content_type": content_type.value,
         "has_code": bool(has_code),
         "chunk_index": chunk_index,
         "token_count": token_count,
         "pages": list(pages),
-        "has_visual_content": bool(has_visual_content),
-        "vision_model": vision_model,
-        "visual_processing_status": visual_processing_status,
+        "content": content,
+        "code_blocks": code_blocks,
     }
 
 

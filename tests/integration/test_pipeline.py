@@ -6,10 +6,6 @@ import pytest
 
 from config import Config, load_config
 from ingestion.pdf_loader import run_pipeline
-from tests.unit.test_vision import FakeRenderer
-from vision.detector import VisualContentDetector
-from vision.model import GeminiVisionModel
-from vision.stage import VisionStage
 
 ROOT = Path(__file__).resolve().parents[2]
 ORACLE = ROOT / "data" / "raw" / "oracle" / "Cours_Oracle_Complet.pdf"
@@ -26,7 +22,6 @@ def _covered(chunks):
 @pytest.mark.skipif(not ORACLE.exists(), reason="Oracle PDF not present")
 def test_oracle_pipeline(tmp_path):
     cfg = Config.default()
-    cfg.vision.enabled = False  # keep this integrity test offline/fast
     doc, report = run_pipeline(str(ORACLE), cfg, str(tmp_path))
     # Every PDF page is recorded as a Page (text-only pipeline keeps page continuity).
     assert len(doc.pages) == 133
@@ -42,7 +37,6 @@ def test_oracle_pipeline(tmp_path):
 @pytest.mark.skipif(not PLSQL.exists(), reason="PL/SQL PDF not present")
 def test_plsql_pipeline(tmp_path):
     cfg = Config.default()
-    cfg.vision.enabled = False  # keep this integrity test offline/fast
     doc, report = run_pipeline(str(PLSQL), cfg, str(tmp_path))
     assert len(doc.pages) == 155
     covered = _covered(doc.chunks)
@@ -54,41 +48,8 @@ def test_plsql_pipeline(tmp_path):
 @pytest.mark.skipif(not ORACLE.exists(), reason="Oracle PDF not present")
 def test_oracle_chapter_one_and_three_detection(tmp_path):
     cfg = Config.default()
-    cfg.vision.enabled = False  # keep this integrity test offline/fast
     doc, report = run_pipeline(str(ORACLE), cfg, str(tmp_path))
     chapters = " ".join(report["chapters"])
     assert "Chapitre 1" in chapters
     assert "Chapitre 3" in chapters
     assert "Chapitre 2" not in chapters
-
-
-@pytest.mark.skipif(not ORACLE.exists(), reason="Oracle PDF not present")
-def test_oracle_pipeline_with_vision_stage(tmp_path):
-    """End-to-end run with a fake (mocked) vision model injected.
-
-    This exercises the real merge/clean/chunk path with vision output while avoiding
-    any dependency on transformers/torch/PyMuPDF at test time.
-    """
-    cfg = Config.default()
-    calls = []
-
-    def fake_generate(image, prompt):
-        calls.append(prompt)
-        return "VISUAL: architecture of the Oracle instance."
-
-    stage = VisionStage(
-        model=GeminiVisionModel("Qwen/fake", generate_fn=fake_generate),
-        renderer=FakeRenderer(mode="new"),
-        detector=VisualContentDetector(cfg.vision),
-        config=cfg.vision,
-        cache_dir=str(tmp_path),
-    )
-    doc, report = run_pipeline(str(ORACLE), cfg, str(tmp_path), vision_stage=stage)
-    # No page loses its native text; vision output is additive.
-    assert report["validation_errors"] == 0
-    assert report["chunks_with_visual_content"] > 0
-    assert report["vision_model"] == "Qwen/fake"
-    assert any("Oracle" in c.text for c in doc.chunks)
-    assert any("VISUAL" in c.text for c in doc.chunks)
-    # The vision prompt received chapter/slide context.
-    assert any("Chapitre" in p for p in calls)

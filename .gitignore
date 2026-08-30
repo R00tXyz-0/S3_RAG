@@ -7,9 +7,6 @@ __pycache__/
 .venv/
 venv/
 
-# Large extracted diagram images (regenerate via the pipeline)
-data/processed/images/
-
 # OS / editor
 .DS_Store
 Thumbs.db
@@ -19,7 +16,6 @@ Thumbs.db
 .env.local
 *.env.secret
 
-# Generated pipeline outputs / caches (reproducible; .gitkeep placeholders are kept)
+# Generated pipeline outputs (reproducible; .gitkeep placeholders are kept)
 data/processed/chunks/*.jsonl
 data/processed/evaluation/*.json
-data/processed/vision/

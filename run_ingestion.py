@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 from config import load_config
-from ingestion.pdf_loader import run_pipeline, run_vision_test_mode
+from ingestion.pdf_loader import run_pipeline
 from ingestion.report import print_report, save_report
 
 ROOT = os.path.dirname(__file__)
@@ -21,18 +21,6 @@ PDFS = [
 def main() -> None:
     config = load_config()
     config.processed_dir = os.path.join(ROOT, "data", "processed")
-
-    # Small vision smoke test: process only 3 selected pages via Gemini, then exit.
-    if "--test-vision" in sys.argv:
-        n = 3
-        for sub, fname in PDFS:
-            path = os.path.join(RAW, sub, fname)
-            if not os.path.exists(path):
-                print(f"[skip] {path} not found")
-                continue
-            print(f"\n>>> Vision test mode ({n} pages) for {fname} ...")
-            run_vision_test_mode(path, config, n_pages=n)
-        return
 
     for sub, fname in PDFS:
         path = os.path.join(RAW, sub, fname)

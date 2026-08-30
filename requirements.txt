@@ -3,10 +3,3 @@ pypdf>=4.0
 
 # Tests
 pytest>=7.0
-
-# Visual -> Text stage (Google Gemini multimodal API, model: gemini-3.6-flash)
-# API key is read from GEMINI_API_KEY (environment or .env). No local model inference.
-google-genai>=1.0
-python-dotenv>=1.0
-pymupdf>=1.24
-Pillow>=10.0

@@ -3,15 +3,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-from vision.prompt import VISION_PROMPT
-
 
 @dataclass
 class ChunkConfig:
-    target_tokens: int = 550
-    overlap_tokens: int = 64
-    max_tokens: int = 800
-    min_tokens: int = 150
+    # Guidelines (not hard limits): ~300-700 tokens per chunk, ~50-100 overlap.
+    target_tokens: int = 500
+    overlap_tokens: int = 80
+    max_tokens: int = 700
+    min_tokens: int = 300
 
 
 @dataclass
@@ -58,23 +57,11 @@ class StructureConfig:
 
 
 @dataclass
-class VisionConfig:
-    enabled: bool = True
-    model_name: str = "gemini-3.6-flash"
-    render_dpi: int = 150
-    # Embedded image area (width*height in px) at/above which a native-text page is
-    # considered to contain a meaningful diagram worth sending to the vision model.
-    min_image_area: int = 20000
-    # Skip identical rendered pages (same image hash) within a document run.
-    dedup: bool = True
-    max_new_tokens: int = 1024
-    # Gemini API production behavior.
-    timeout: int = 120
-    max_retries: int = 4
-    temperature: float = 0.3
-    # Directory where successful per-page visual results are cached as JSON.
-    cache_dir: str = "data/processed/vision"
-    prompt_template: str = VISION_PROMPT
+class QualityConfig:
+    # Below this token count a chunk is flagged as extremely small (suspicious).
+    small_chunk_tokens: int = 20
+    # Above this token count a chunk is flagged as extremely large (suspicious).
+    large_chunk_tokens: int = 1500
 
 
 @dataclass
@@ -83,7 +70,7 @@ class Config:
     classify: ClassifyConfig = field(default_factory=ClassifyConfig)
     clean: CleanConfig = field(default_factory=CleanConfig)
     structure: StructureConfig = field(default_factory=StructureConfig)
-    vision: VisionConfig = field(default_factory=VisionConfig)
+    quality: QualityConfig = field(default_factory=QualityConfig)
     sql_keywords: List[str] = field(
         default_factory=lambda: [
             "CREATE",
@@ -104,6 +91,28 @@ class Config:
             "LOOP",
             "COMMIT",
             "ROLLBACK",
+            "END",
+            "IF",
+            "THEN",
+            "ELSE",
+            "ELSIF",
+            "FOR",
+            "WHILE",
+            "TYPE",
+            "PROCEDURE",
+            "FUNCTION",
+            "TRIGGER",
+            "PACKAGE",
+            "EXCEPTION",
+            "RETURN",
+            "EXIT",
+            "VARRAY",
+            "VARYING",
+            "DBMS_OUTPUT",
+            "PRAGMA",
+            "RAISE",
+            "WHEN",
+            "CASE",
         ]
     )
     # 0 = process all pages (used for quick tests).

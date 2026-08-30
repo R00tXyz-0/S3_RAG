@@ -41,35 +41,9 @@ group is only split when it exceeds the size limit. Target ≈ 550 tokens, overl
 heading per page (skipping recurring first-line "deck labels"). The same grouping logic serves
 both slide decks and textbook-like documents, so PL/SQL is handled without special-casing.
 
-## 8. Visual → Text processing — **rebuilt with Gemini**
-The **Visual → Text** stage is a first-class part of the pipeline. Each PDF page is rendered with
-PyMuPDF and, when it carries meaningful visual content, sent to the **Google Gemini** multimodal API
-(`google-genai` SDK, model `gemini-3.6-flash` by default) to extract a clean textual description of
-diagrams, tables, architecture figures and any SQL/PL/SQL code embedded in images. The extracted text
-is **merged with the native text layer** (native first, visual second) before cleaning and chunking,
-so image-only slides and hybrid slides become real chunks without changing the text chunking logic.
-
-Key design points:
-- **Selective inference.** Only `no_text` and `hybrid` pages, plus native-text pages that embed a
-  large image (a diagram), are sent to Gemini. Plain text pages are skipped to avoid wasted calls.
-- **Deduplication.** Identical rendered pages (same image hash) within a run are processed once.
-- **Caching.** Successful per-page results are cached to `data/processed/vision/<source>/page_NNN.json`;
-  a page is never re-processed if its result is already cached.
-- **Production resilience.** Timeout, retry with exponential backoff, rate-limit (429) handling,
-  API error handling, per-page logging, and graceful degradation. If the API key is missing, the
-  network fails, or a page errors, native text is **never lost**; the failure is recorded in
-  `visual_processing_status` and the page continues through the text pipeline.
-- **Secure key handling.** The API key is read from `GEMINI_API_KEY` (optionally a `.env` file via
-  `python-dotenv`). It is never hardcoded and never printed. `.env` is git-ignored.
-- **Chapter/slide context.** The vision prompt receives the detected chapter and slide title so the
-  model can label diagrams correctly.
-
-## 9. Metadata
+## 8. Metadata
 Every chunk carries: `source, page_start, page_end, chapter, slide_title, content_type, has_code,
-chunk_index` (+ `token_count`, `pages`). Vision fields are added when present:
-`has_visual_content, vision_model, visual_processing_status`. (The OCR-specific `is_ocr` field was
-removed in an earlier cleanup; the analogous information for the vision stage is captured by
-`has_visual_content` / `visual_processing_status`.) No fabricated `subsection` field.
+chunk_index` (+ `token_count`, `pages`). No fabricated `subsection` field.
 
 ## 11. Validation
 `validation/validator.py` checks page continuity, extraction status, non-empty chunks, valid
@@ -77,16 +51,12 @@ metadata, page ranges, unique `chunk_index`, and code integrity. Chunks below `m
 **flagged for review, never deleted**.
 
 ## 12. Current limitations
-- The Visual → Text stage needs `google-genai`, `python-dotenv`, `pymupdf` and `Pillow`. If those are
-  not installed, or the Gemini API key is missing / the request fails, the pipeline automatically
-  degrades to the text-only behaviour: native text is preserved and `no_text` pages simply produce no
-  chunk.
 - Because the decks are slides (~60 tokens of text each), many chunks are below 150 tokens. This
   is expected for this document type and is flagged, not hidden. On prose-heavy sections chunks
   grow toward the target.
 - Token count is a word-count approximation (good enough for pre-embedding sizing).
-- Gemini inference is intentionally mocked in the test suite (a `generate_fn` is injected); running the
-  real model only requires a `GEMINI_API_KEY` (no local GPU / model download).
+- `no_text` / `hybrid` slides (no usable text layer) produce no chunk; only the native text layer
+  is used.
 
 ## 13. Future roadmap (NOT implemented)
 ```
@@ -95,14 +65,7 @@ PDF
 Text extraction
  ↓
 Page classification (text quality)
-   ├── Native text ─────────────┐
-   ├── Hybrid (title only) ─────┤
-   └── No-text (image slide) ───┤
-                                ↓
-                       Visual → Text (render + Gemini)
-                                ↓
-                       Merge native + visual text
-                                ↓
+ ↓
 Cleaning
  ↓
 Structure detection
@@ -142,14 +105,8 @@ src/
   chunking/chunker.py            structure-aware chunker (size/overlap/code guards)
   metadata/metadata.py           chunk metadata assembly
   validation/validator.py        page + chunk validation
-  vision/prompt.py               vision model system prompt + context builder
-  vision/renderer.py             PyMuPDF page renderer (lazy import)
-  vision/detector.py             visual-content detection / filtering
-   vision/model.py                GeminiVisionModel wrapper (mockable, injectable generate_fn)
-  vision/merger.py               native + visual text merge
-  vision/stage.py                per-page vision orchestration
   ingestion/pdf_loader.py        pipeline orchestrator
   ingestion/report.py            extraction/chunking report
   models/document.py             Page / Chunk / LogicalGroup dataclasses
-  config/__init__.py             tunable Config (sizes, thresholds, regexes, VisionConfig)
+  config/__init__.py             tunable Config (sizes, thresholds, regexes)
 ```
