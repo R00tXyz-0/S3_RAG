@@ -3,3 +3,8 @@ pypdf>=4.0
 
 # Tests
 pytest>=7.0
+
+
+sentence-transformers
+torch
+numpy
