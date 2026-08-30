@@ -1,0 +1,422 @@
+[
+  {
+    "chunk_id": "ch1_001",
+    "text": "Chapitre 1 : Architecture de SGBD oracle et la structure de la base de données.\nPr. AMINE ABDELLAH. Année universitaire : 2025/2026. Contact : a.amine@usms.ma.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Page de titre",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 1,
+      "page_end": 1,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch1_002",
+    "text": "Objectifs du chapitre :\n- Compréhension minimale de l'architecture de SGBD oracle\n- Configuration d'oracle Net (service réseau)\n- Arrêt et démarrage (les étapes à suivre …..)\n- Création d'une base de données\n- Gestion de la mémoire\n- Gestion de stockage (Tablespaces, Datafiles, Indexes, Tables, ...)\n- Gestion de la sécurité (Utilisateurs, droits)\n- Sauvegarde et restauration avec RMAN (Recovery Manager)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Objectifs",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 2,
+      "page_end": 2,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch1_003",
+    "text": "Pré-requis :\n- Base de données relationnelles : TABLE, VUE, INDEX\n- SQL : SELECT, INSERT, DELETE, UPDATE\nImage : illustration décorative d'un personnage se demandant « Quels sont les prérequis ? » et « Suis-je prêt ? ».",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Pré-requis",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 3,
+      "page_end": 3,
+      "content_type": "mixed"
+    }
+  },
+  {
+    "chunk_id": "ch1_004",
+    "text": "Agenda du chapitre :\n- Introduction aux bases de données\n- Structure de la mémoire (types de la mémoire, comment gérer les zones mémoires)\n- Structure des processus d'arrière plan (background process) : Processus côté serveur SGBD ; Processus côté utilisateur\n- Structure de stockage de données (tablespaces, datafiles, controlfiles)\n- Démonstration",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Agenda",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 4,
+      "page_end": 4,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch1_005",
+    "text": "Introduction aux BD :\nBase de données (database) : Ensemble structurés d'éléments d'informations, agencés sous forme de tables, dans lesquels les données sont organisées selon certaines critères et sémantiques en vue de permettre leur manipulation et exploitation.\n\nSystème de gestion de base de données (Database Management System) : Système qui gère et contrôle l'accès à une base de donnée, assurant ainsi une interface normalisée entre les applications et les bases de données.\nSchéma (page 6) : logos des principaux SGBD du marché cités en illustration : IBM DB2, MySQL, Sybase, Oracle, Microsoft SQL Server, PostgreSQL.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Introduction aux BD",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 5,
+      "page_end": 6,
+      "content_type": "mixed"
+    }
+  },
+  {
+    "chunk_id": "ch1_006",
+    "text": "Produits oracle — Schéma en pile (stack) reliant chaque couche à des produits, avec relations orientées (flèches) de chaque couche vers son produit :\n- Applications → Oracle E-Business suite (sql, plsql, java)\n- Middleware → WebLogic Application Server\n- Database → Oracle, Essbase, Mysql\n- Operating System → Solaris, Entreprise Linux\n- Virtual Machine → Oracle VM : X86, SPARC\n- Servers → Exadata Database Machine\n- Storage → ZFS Storage",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Produits oracle",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 7,
+      "page_end": 7,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_007",
+    "text": "Présentation d'oracle :\nC'est quoi oracle ? Oracle Database est un SGBD relationnelles.\nDisponible sur un grand nombre de plateformes (Windows, Unix, Linux).\nCommercialisé selon 3 gammes :\n- Edition entreprise : grosses base de données\n- Edition standard : moins développé\n- Edition personnelle (uniquement sur windows)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Présentation d'oracle",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 8,
+      "page_end": 8,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch1_008",
+    "text": "Oracle 9i/C … Enterprise Edition — options avancées :\n- Oracle Real Application Cluster (RAC) : utilisation d'oracle sur serveur en cluster ; Haute disponibilité ; Partage de charge\n- Oracle Partitioning : Subdivision de données sous forme de partition\n- Advanced Security Option : Options avancées en termes de sécurité\n- Oracle Tuning Pack : Module d'optimisation de l'administration\n- Oracle OLAP et Oracle Data Mining : Mise en place des solutions des systèmes décisionnels ou BI",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Oracle Enterprise Edition",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 9,
+      "page_end": 9,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch1_009",
+    "text": "Architecture d'un serveur oracle :\n- Serveur = Base de donnée + Une instance\n- Base de donnée = Structure physique + Structure logique\n- Instance = Mémoire partagée (SGA) + ∑Processus d'arrière plan + ∑Processus serveur\n- Partie visible à l'OS : la Base de Données (BD)\n- Partie invisible à l'OS : Organisation des fichiers de données\n- Zone de stockage dans lequel nous trouvons le dictionnaire de données\n\nSchéma (page 10) — Architecture détaillée d'un serveur Oracle :\n- Instance : contient Server Process 1 relié à un PGA, Server Process 2 relié à un autre PGA, ces processus serveur sont reliés à la SGA (Système Global Area, identifiée par ORACLE_SID), qui est elle-même reliée aux Background Processes (DBWn, CKPT, LGWR).\n- Physical Database Structure : la Database contient Data Files, Control Files, Redo Log Files ; à côté se trouvent Archive Log Files, Password Files, Parameter Files.\n- Les Data Files pointent vers plusieurs Datafiles (Datafile 1 à 5).\n- Logical Database Structure : la Database logique contient SYSTEM Tablespace, SYSAUX Tablespace, Tablespace 1, Tablespace 2, reliés en pointillés aux Datafiles correspondants.\n- Annotations : « Serveur = Base de donnée + Une instance » ; « Base de donnée = Structure physique + Structure logique » ; « Instance = Mémoire partagée (SGA) + ∑Processus d'arrière plan + ∑Processus serveur » ; « Partie visible au OS » (pointant vers la BD) ; « Partie invisible au OS : Organisation des fichiers de données » (pointant vers la structure logique) ; « Zone de stockage dans lequel nous trouvons le dictionnaire de données » sous la structure logique.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de la mémoire",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 10,
+      "page_end": 10,
+      "content_type": "mixed"
+    }
+  },
+  {
+    "chunk_id": "ch1_010",
+    "text": "Architecture d'un serveur oracle (suite) :\n- Un serveur oracle est composé d'une instance et d'une base de données\n- Une instance est composée de structure de mémoire partagée + Processus Oracle\n\nSchéma (page 11) — Diagramme client/serveur de connexion :\n- Client side components : User → User process, relié via « Connexion »/« Oracle NET » aux Server side components : Server process → Instance.\n- Outils de connexion listés : SQLPLUS, SQLDEVELOPER, TOAD.\n- Session components englobe le User process et le Server process.\n- Le Server process communique avec l'Instance, qui est elle-même reliée à la base de données Oracle (représentée par un cylindre étiqueté « Oracle »).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de la mémoire",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 11,
+      "page_end": 11,
+      "content_type": "mixed"
+    }
+  },
+  {
+    "chunk_id": "ch1_011",
+    "text": "Instance vs Base de Données :\n- Par analogie, une instance peut être considérée comme étant l'application Excel de Microsoft.\n- Une base de données représente les fichiers générés en appliquant l'instance.\n- Une instance est administrée par un ensemble de processus.\n\nSchéma (page 12) : illustration de l'analogie — une fenêtre Microsoft Excel ouverte représente l'« Instance » ; une liste de processus dans le Gestionnaire des tâches Windows (Windows Task Manager, onglet Processes) représente les « Processus », avec EXCEL.EXE mis en évidence ; un dossier « Database » contenant des fichiers (ADRESSES.xlsx, DEPARTMENTS.xlsx, EMPLOYEES.xlsx, HISTORIQUE.xlsx) représente la « Base de données ». Des flèches relient Instance → Database et Processus ↔ Instance.\n\nSchéma (page 13) : plusieurs postes clients (ordinateurs) sont reliés à un « Database Server » via le « listener oracle ». Le Database Server contient l'« Oracle Instance » (encadrée, définie comme : « An Oracle instance consists of processes and memory on the database server »), elle-même reliée à l'« Oracle Database » (définie comme : « An Oracle database consists of physical files on the disk »).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Instance vs Base de Données",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 12,
+      "page_end": 13,
+      "content_type": "mixed"
+    }
+  },
+  {
+    "chunk_id": "ch1_012",
+    "text": "Structure de la mémoire — SGA vs PGA.\nSchéma (page 14) : Des processus (Server Process, Server Process 2, Background process) sont chacun reliés à leur propre PGA (annotation : « Mémoire dédiée pour chaque processus serveur »). Ces processus sont également reliés à la SGA (System Global Area, SGA_MAX_SIZE = annotation « Taille maximale de la mémoire partagée »).\nLa SGA contient six zones mémoire représentées en blocs :\n- Shared pool (annotation : « Mémoire partagée — Requêtes/Dictionnaire »)\n- Streams pool (annotation : « Zone mémoire de synchronisations entre BDs »)\n- Large pool (annotation : « Zone mémoire optionnelle »)\n- Java pool (annotation : « Mémoire utilisée par la MV java intégrée »)\n- Database buffer cache (annotation : « Cache des données »)\n- Redo log buffer (annotation : « Mémoire temporaire assurant l'enregistrement des modifications apportées à la BD »)\nNote générale : « Mémoire partagée entre les instances ».",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de la mémoire - SGA vs PGA",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 14,
+      "page_end": 14,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_013",
+    "text": "Comment dimensionner la structure de la mémoire ?\n- Gestion automatique de la mémoire AMM (Automatic Memory Management)\n- Gestion manuelle de la mémoire\n- Les méthodes de configuration : Database Configuration Assistant (DBCA), SQL*Plus, Enterprise Manager\n\nTableau comparatif par version Oracle (pages 16-17) :\n| Version | SGA | PGA |\n|---------|-----|-----|\n| Oracle 9i Internet | SGA Dynamique : Le DBA doit dimensionner individuellement les différentes composants de la SGA, mais les composants sont redimensionnables à chaud | Gestion Automatique de La PGA : Le DBA alloue une quantité de mémoire totale pour la PGA agrégée des processus serveurs et ORACLE répartit cette mémoire automatiquement entre les différents processus en fonction des besoins |\n| Oracle 10g Database | Gestion Automatique de La SGA : Le DBA alloue une quantité de mémoire totale pour la SGA et ORACLE répartit cette mémoire automatiquement entre les différentes composantes en fonction des besoins | (idem cellule PGA ci-dessus, non répétée) |\n| Oracle 11g Database | Gestion Automatique de La Mémoire : Le DBA alloue une quantité de mémoire totale pour l'Instance et ORACLE répartit cette mémoire automatiquement entre la SGA (et ces différents composantes) et La PGA en fonction des besoins (cellule fusionnée SGA+PGA) |",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de la mémoire - Dimensionnement",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 15,
+      "page_end": 17,
+      "content_type": "table"
+    }
+  },
+  {
+    "chunk_id": "ch1_014",
+    "text": "Processus d'arrière-plan (Background processus) :\n- Un processus d'arrière plan est un processus qui s'exécute dans les coulisses et sans intervention de l'utilisateur.\n- Les processus démarrent et arrêtent avec l'activation et la désactivation de l'instance.\n  - Sous Unix, chaque processus s'exécute individuellement\n  - Sous Windows, ORACLE.EXE = Master Process + fils (threads)\n\nCode SQL (capture d'écran, page 18) :\n```sql\nSQL> Select process\n     from v$process\n     order by program;\n```\nAnnotation à côté de v$process : « (Dynamic Performance Vue) ».",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "content_type": "mixed"
+    }
+  },
+  {
+    "chunk_id": "ch1_015",
+    "text": "Schéma général des processus d'arrière-plan (page 19) — vue d'ensemble reliant la SGA, les processus d'arrière-plan et les fichiers physiques :\n- SGA contient : Shared pool, Streams pool, Large pool (rangée du haut) et Java pool, Database buffer cache, Redo log buffer (rangée du bas).\n- Database buffer cache est relié vers le bas à System Monitor (SMON), Process Monitor (PMON), Database Writer (DBWn).\n- Redo log buffer est relié vers le bas à LogWriter (LGWR) et à Archive log files.\n- Database Writer (DBWn) écrit vers Data files, en passant par Checkpoint (CKPT) qui est relié à Control files.\n- LogWriter (LGWR) écrit vers Redo log files.\n- Redo log files sont archivés par Archiver (ARCn) vers Archive log files.\n- Checkpoint (CKPT) est relié à Control files, qui pointent également (flèche) vers Data files.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 19,
+      "page_end": 19,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_016",
+    "text": "Processus d'arrière-plan : DBWn (Database Writer) — schéma identique au schéma général de la page 19, avec le bloc « Database Writer (DBWn) » mis en évidence (entouré en rouge) et une flèche indiquant qu'il écrit vers les Data files.\n\nObjectif :\n- Écrire les blocs modifiés de DB/Database buffer cache dans les fichiers de données (Data files)\n- Réalisation d'écriture multi-bloc\n\nDéclencheur de l'opération d'écriture :\n- Processus serveur ne trouve pas de place dans le Cache\n- Faire avancer le point de reprise\n- Fichier de données endommagés après validation",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan - DBWn",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 20,
+      "page_end": 21,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_017",
+    "text": "Processus d'arrière-plan : LGWR (LogWriter) — même schéma général, avec « Database Writer (DBWn) » et « LogWriter (LGWR) » entourés en rouge et flèches pointant vers ces deux blocs.\n\nObjectif :\n- Écrire le REDO LOG BUFFER dans le fichier de journalisation courant (actuel)\n\nDéclencheur de l'opération d'écriture :\n- Transaction est validée (commit)\n- Redo log buffer est tout entière plein\n- Transaction non validée\n- Si le délai avait dépassé 3 secondes",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan - LGWR",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 22,
+      "page_end": 22,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_018",
+    "text": "Processus d'arrière-plan : CKPT (Checkpoint) — même schéma général, avec « Database Writer (DBWn) », « LogWriter (LGWR) » et « Checkpoint (CKPT) » entourés en rouge et flèches pointant vers ces blocs.\n\nObjectif :\n- Mécanisme de synchronisation entre les fichiers de contrôles et de données\n- Enregistrer le point de reprise à l'entête des fichiers de contrôle et de données\n\nDéclencheur de l'opération d'écriture :\n- Processus serveur ne trouve pas de place dans le Cache\n- Faire avancer le point de reprise\n- Fichier de données endommagés après validation",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan - CKPT",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 23,
+      "page_end": 23,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_019",
+    "text": "Processus d'arrière-plan : SMON (System Monitor) — même schéma général, avec « System Monitor (SMON) », « Database Writer (DBWn) », « LogWriter (LGWR) » et « Checkpoint (CKPT) » entourés en rouge et flèches pointant vers ces blocs.\n\nObjectif :\n- Récupérer l'instance après un arrêt non souhaité\n- Libérer les segments non utilisés\n\nMécanismes de récupération :\n- Roll Forward : Consiste à appliquer aux fichiers de données les modifications non enregistrées des transactions validées\n- Roll Back : Enlever des fichiers de données des modifications enregistrées des transactions non validées",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan - SMON",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 24,
+      "page_end": 24,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_020",
+    "text": "Processus d'arrière-plan : PMON (Process Monitor) — même schéma général, avec « System Monitor (SMON) », « Process Monitor (PMON) », « Database Writer (DBWn) », « LogWriter (LGWR) » et « Checkpoint (CKPT) » entourés en rouge et flèches pointant vers ces blocs.\n\nObjectif :\n- Nettoyage lors du plantage d'un processus utilisateur\n- Annulation du ROLLBACK de la transaction\n- Libération des verrous et des ressources",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan - PMON",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 25,
+      "page_end": 25,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_021",
+    "text": "Processus d'arrière-plan : ARCn (Archiver) — même schéma général, avec tous les processus (SMON, PMON, DBWn, LGWR, CKPT, ARCn) entourés en rouge et flèches pointant vers ces blocs.\n\nObjectif :\n- Archivage des fichiers de journalisation plein",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure des processus d'arrière-plan - ARCn",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 26,
+      "page_end": 26,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_022",
+    "text": "Structure de stockage de données.\nSchéma (page 27) : structure de la base de données Oracle en trois niveaux, du haut vers le bas :\n- Invisible à l'OS / Logical Structures : la « Oracle Database » contient les tablespaces logiques SYSTEM Tablespace, SYSAUX Tablespace, UNDO Tablespace, USERS Tablespace, TEMP Tablespace (chacun représenté comme un tiroir de fichiers).\n- Visible à l'OS / Physical Structures : chaque tablespace pointe (flèche vers le bas) vers un Datafile correspondant (Datafile pour SYSTEM, SYSAUX, UNDO, USERS ; Tempfile pour TEMP) ; s'y ajoutent le Control file, le Server Parameter file, le Password file et les Online Redo Logs.\n- Flash Recovery Area : reçoit une copie des Online Redo Logs sous forme d'Archived Redo Logs (flèche des Online Redo Logs vers Archived Redo Logs).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 27,
+      "page_end": 27,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_023",
+    "text": "Types de fichier oracle — schéma reprenant l'architecture SGA/processus d'arrière-plan/fichiers, avec un ordre de priorité numéroté sur les flèches d'écriture vers les fichiers physiques :\n1. Control files (écrit par Checkpoint/CKPT)\n2. Redo log files (écrit par LogWriter/LGWR)\n3. Archive log files (écrit par Archiver/ARCn, à partir des Redo log files)\n4. Data files (écrit par Database Writer/DBWn)\nLes numéros 1 à 4 apparaissent sur des pastilles rouges le long des flèches correspondantes, indiquant l'ordre/la priorité des écritures.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Types de fichier",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 28,
+      "page_end": 28,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_024",
+    "text": "Fichier de contrôle (Control file) :\nUn des fichiers les plus importants pour le bon fonctionnement d'une BD. Contient des informations précieuses de la BD :\n- Date/heure de la création de la BD\n- Nom de la BD (DBNAME)\n- L'ID de la BD (DBID)\n- Info RMAN\n- Archive On/OFF\n- Numéro de séquence (SCN)\n- Chemin + Nom fichiers de la BD avec leurs statuts\n- Point de reprise (CHECKPOINT)\n- Etc.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Fichier de contrôle",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 29,
+      "page_end": 29,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch1_025",
+    "text": "Où se trouve des informations sur les fichiers de contrôles ?\n\nCode SQL (capture d'écran, page 30) :\n```sql\nSQL> SHOW PARAMETER CONTROL_FILES;\n\nSQL> SELECT value\n     FROM v$parameter\n     WHERE name = 'control_files';\n```\nRésultat affiché pour la première commande :\n```\nSQL> show PARAMETER CONTROL_FILES\n\nNAME              TYPE      VALUE\n----------------- --------- -----------------------------------------\ncontrol_files     string    C:\\ORACLEXE\\APP\\ORACLE\\ORADATA\\XE\\CONTROL.DBF\n```\nAnnotation : « Voir le statut des fichiers de contrôles » avec flèche vers la commande suivante :\n```sql\nSQL> SELECT status, name\n     FROM v$controlfile;\n```\nRésultat affiché :\n```\nSTATUS\n------\nNAME\n------------------------------------------------------------\nC:\\ORACLEXE\\APP\\ORACLE\\ORADATA\\XE\\CONTROL.DBF\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Fichier de contrôle",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 30,
+      "page_end": 30,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch1_026",
+    "text": "Fichier de données (Data files) :\n- Extension (.dbf)\n- Contient l'ensemble des données de la base : Les tables, Les vues, Les procédures stockées, Etc.\n- Modifier le contenu de la base à travers des ordres SQL\n- Contient des informations de deux types :\n  - Le dictionnaire de données (system tablespaces) : métabase décrivant tous les objets de la base de données\n  - Les données utilisateurs (user tablespaces)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Fichier de données",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 31,
+      "page_end": 31,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch1_027",
+    "text": "Tablespace vs Datafiles :\nChaque espace de tables (tablespace) contient des fichiers de données de dictionnaire de données ou de l'utilisateur.\n\nSchéma (page 32) : une « Database » contient trois tablespaces :\n- Tablespace 1 → Datafile 1, contenant des Segments (2 segments illustrés).\n- Tablespace 2 → Datafile 2 et Datafile 3, contenant des Segments et des Extents of Same Segment (extents d'un même segment répartis entre les deux datafiles).\n- Tablespace 3 → Datafile 4, contenant des Segments et des Extents of Same Segment.\nLes annotations en bas identifient, de gauche à droite : Segments, Extents of Same Segment, Segments, Extents of Same Segment, chacune reliée par des lignes aux blocs correspondants dans les datafiles.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Tablespace vs Datafiles",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 32,
+      "page_end": 32,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_028",
+    "text": "Fichiers de journalisation (online redo log & Archived redo log files) :\nDans les environnements critiques, par recommandation, nous trouvons 3 groupes. Chaque groupe comprend des fichiers de journalisation. Une fois les fichiers du groupe 1 est plein, on passe au groupe 2, alors que les fichiers du groupe 1 sont archivés via le processus d'arrière plan ARCn.\n\nSchéma (page 33) : cycle entre trois groupes de fichiers redo log, chacun avec 2 membres miroirs (=) :\n- Group 1 : redog1m1.log = redog1m2.log (Seq# = 1)\n- Group 2 : redog2m1.log = redog2m2.log (Seq# = 2)\n- Group 3 : redog3m1.log = redog3m2.log (Seq# = 3)\nDes flèches courbes relient Group 1 → Group 2 → Group 3 → retour vers Group 1 (Seq# = 4), illustrant le cycle. Légende : « Sequence number advances as logs fill and cycle ».\n\nLes améliorations apportées à la BD sont écrites par le processus LGWR au niveau des groupes Redo log.\n\nSchéma (page 34) : la SGA contient un « Redo Log Buffer » relié à « LGWR » (entouré). LGWR écrit vers les fichiers Redo Log Group 1/2/3 Member A et Member B (6 fichiers au total, organisés en 2 rangées de 3 groupes). Le processus « ARCn » (entouré, avec flèche) prend les Redo Log pleins et les transforme en « Archived Redo Log », stockés dans une pile de fichiers représentée à côté d'une icône d'archive (classeurs colorés).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Fichiers de journalisation",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 33,
+      "page_end": 34,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_029",
+    "text": "Structure logique de stockage :\n- Un tablespace est constitué de plusieurs segments\n- Un segment est constitué des extents\n- Un extent est constitué des blocs\n- Chaque bloc est lié aux blocs au niveau de l'OS\n\nSchéma (page 35) : hiérarchie emboîtée. La « Database » contient les tablespaces SYSTEM Tablespace, SYSAUX Tablespace, Tablespace 1, Tablespace 2. Le Tablespace 1 (agrandi en pointillés) contient Segment 1, Segment 2, Segment 3. Le Segment 2 (agrandi en pointillés) contient Extent 1 et Extent 2, chacun composé de plusieurs Blocks (cases individuelles), la légende « Block » pointant vers ces cases.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Structure logique",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 35,
+      "page_end": 35,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch1_030",
+    "text": "Dictionnaire de données oracle :\n- Une structure qui contient un ensemble de tables et de vues\n- Descripteur des objets de la base de données\n- L'utilisateur SYS est le propriétaire du DD\n- Mise à jour automatique sans utiliser les ordres SQL create, select et drop\n- Créé lors de la création de la BD dans la tablespace SYSTEM\n- On interroge le DD via des ordres SQL\n\nTypes de vues du dictionnaire de données :\n- Vues statiques : DBA_%, ALL_%, USER_%\n- Vues dynamiques : V$nom de la vue\n- Connaître le nom de la vue et leur description",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 1 : Architecture de SGBD oracle",
+      "subsection": "Structure de stockage de données - Dictionnaire de données",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 36,
+      "page_end": 37,
+      "content_type": "text"
+    }
+  }
+]
