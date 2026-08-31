@@ -5,7 +5,7 @@ from src.vector_store.faiss_store import FAISSVectorStore
 
 
 EMBEDDINGS_PATH = (
-    "data/processed/embeddings/PSQL_embeddings.jsonl"
+    "data/processed/embeddings/PSQL_embeddings.jsonl" # OR ORACLE
 )
 
 INDEX_PATH = (

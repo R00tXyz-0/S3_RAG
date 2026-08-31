@@ -8,3 +8,4 @@ build_embeddings(
     output_path="data/processed/embeddings/Oracle_embeddings.jsonl",
     model_name=MODEL_NAME
 )
+
