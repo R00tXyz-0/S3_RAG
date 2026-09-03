@@ -39,7 +39,6 @@ pollute the text. The pipeline normalises all of that into chunks ready for embe
 * Sentence Transformers
 * FAISS
 * Gemini API
-* OCR / Document Processing
 
 ### Objective
 
