@@ -418,5 +418,1349 @@
       "page_end": 37,
       "content_type": "text"
     }
+  },
+  {
+    "chunk_id": "ch3_001",
+    "text": "Chapitre 3 : Création d'une BD. Année universitaire : 2025/2026.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Page de titre",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 38,
+      "page_end": 38,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_002",
+    "text": "Création d'une base de données. Vous pouvez créer une base de données à l'aide de :\n- Oracle Universal Installer\n- Oracle Database Configuration Assistant : Interface utilisateur ; Base java ; Lancé par Oracle Universal Installer ; Peut être utilisée en mode autonome\n- De la commande create database",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Création d'une base de données",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 39,
+      "page_end": 39,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_003",
+    "text": "Structure physique d'une BD oracle :\n- Les fichiers de données\n- Les fichiers redo log\n- Les fichiers d'archives\n- Les fichiers de contrôles, d'initialisation et de mot de passe\n\nStructure logique d'une BD oracle :\n- Les tablespaces\n- Les segments et leurs composants\n- Les segments de données de type table\n- Les segments temporaires\n- Les segments rollback",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Structures physique et logique",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 40,
+      "page_end": 40,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_004",
+    "text": "Création d'une BD à l'aide de la commande create.\nL'ordre SQL create database permet :\n- Création des fichiers de contrôles\n- Création des fichiers de journalisation\n- Création du tablespace SYSTEM et de son fichier de données\n- Création du tablespace SYSAUX et de son fichier de données\n- Création des comptes SYS et SYSTEM\n- Création éventuelle d'un tablespace d'annulation, d'un tablespace temporaire par défaut et d'un tablespace permanent par défaut\n- Création du dictionnaire de données (dans le tablespace SYSTEM)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Commande create database",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 41,
+      "page_end": 41,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_005",
+    "text": "Étapes de création d'une BD (avec la commande create) :\n1. Créer les répertoires sur disques\n2. Préparer un nouveau fichier de paramètre init<SID>.ora\n3. Créer un fichier de paramètre serveur à partir du fichier init<SID>.ora\n4. Positionner ORACLE_SID, ou nom de l'instance\n5. Sous Windows uniquement, créer le service associé à l'instance en utilisant l'outil oradim (qui gère les services rattachés aux instances des bases oracle)\n6. Démarrer l'instance en mode nomount\n7. Créer la base en exécutant l'ordre create database\n8. Installer le DD et packages destinés au bon fonctionnement de la BD",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Étapes de création",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 42,
+      "page_end": 42,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_006",
+    "text": "Création d'une BD à l'aide de la commande create — étapes pratiques (1-2) :\n\n1. Création du chemin de l'installation :\n```\nC:\\>mkdir E:\\oracle\\ora\n```\n\n2. Variables d'environnement à positionner :\n```\nC:\\>set oracle_home=%oracle_home%\nC:\\>set path=%oracle_home%\\BIN\nC:\\>set oracle_sid=nom_de_sid\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Étapes pratiques - création",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 43,
+      "page_end": 43,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_007",
+    "text": "Création d'une BD à l'aide de la commande create — étapes pratiques (3-4) :\n\n3. Création de l'instance :\n```\nC:\\>oradim –New –sid ora –startmode auto –INTPWD manager\n```\n\n4. Connexion à l'instance :\n```sql\nsql>sqlplus / nolog\nsql> conn / as sysdba\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Étapes pratiques - création",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 44,
+      "page_end": 44,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_008",
+    "text": "Création d'une BD à l'aide de la commande create — étapes pratiques (5-7) :\n\n5. Créer le fichier de paramètre pfile (init.ora). Spécification des paramètres nécessaires :\n- Db_name='ora'\n- Control_files='E:\\oracle\\ora\\control1.dbf','E:\\oracle\\ora\\control1.dbf'\n- Diagnostic_dest='E:\\oracle\\ora'\n\n6. Création des paramètres serveur spfile :\n```sql\nsql>create spfile from pfile='C:\\init.txt';\n```\n\n7. Démarrage de l'instance :\n```sql\nsql>startup nomount\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Étapes pratiques - création",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 45,
+      "page_end": 45,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_009",
+    "text": "Création d'une BD à l'aide de la commande create — étape 9 : Création de la base :\n```sql\ncreate database dba1\nuser sys identified by sysdba\nuser system identified by sysdba\nlogfile group 1 ('e:\\dba\\redo01.log') size 100M,\ngroup 2 ('e:\\dba\\redo02.log') size 100M,\ngroup 3 ('e:\\dba\\redo03.log') size 100M\nmaxlogfiles 4\nmaxlogmembers 3\nmaxdatafiles 20\nmaxinstances 1\ndatafile 'e:\\dba\\system011.dbf' size 100M\nsysaux datafile 'e:\\dba\\system022.dbf' size 100M\nundo tablespace undotbs01\ndatafile 'e:\\dba\\undo1.dbf' size 100M\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Étapes pratiques - création",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 46,
+      "page_end": 46,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_010",
+    "text": "Création d'une BD à l'aide de la commande create — étape 5 (suite) : Création du dictionnaire de données :\n```sql\n@%oracle_home%/rdbms/admin/catalog.sql\n@%oracle_home%/rdbms/admin/catproc.sql\n@%oracle_home%/rdbms/admin/pupbld.sql\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Étapes pratiques - création",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 47,
+      "page_end": 47,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_011",
+    "text": "Section : Oracle - Administration Oracle — Mémoire SGA (page de titre de sous-partie).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Mémoire SGA - Page de titre",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 48,
+      "page_end": 48,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_012",
+    "text": "Architecture — schéma général (page 49) séparant l'Instance et la Database :\n- Instance (encadré en pointillés orange) contient : System Global Area (SGA), Processus d'arrière plan, et Program Global Area (PGA, encadrée séparément en pointillés gris).\n- Database (à droite) contient : Fichiers de contrôle, Fichiers des données, Fichiers de journalisation.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 49,
+      "page_end": 49,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_013",
+    "text": "Architecture-Instance :\nUne instance est l'ensemble des processus d'arrière-plan (background process) et de zones mémoire qui sont allouées au démarrage de la base de données, pour permettre l'exploitation des données.\nSchéma : Instance = SGA + Processus d'arrière-plan (deux blocs distincts illustrés).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 50,
+      "page_end": 50,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_014",
+    "text": "Architecture-Instance — Détail de la SGA (page 51) :\nSchéma : la SGA contient à gauche la Shared Pool Area (SPA) représentant 40% avec Library Cache et Dictionary Cache, ainsi que Java Pool, Streams Pool, Reserved Area, Large pool ; à droite, Database Buffer Cache représentant 50% et Redo Log Buffer.\n- Cette zone de mémoire partagée par les différents processus de l'instance est allouée au démarrage de l'instance et est libérée lors de l'arrêt de celle-ci.\n- Zone partagée par tous les utilisateurs de la base de données.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - SGA",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 51,
+      "page_end": 51,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_015",
+    "text": "Architecture-Instance — Paramétrer la taille SGA :\nLa SGA doit représenter au moins 2% de la taille totale de la base de données (physique).\nSchéma décisionnel : SGA_TARGET > 0 ?\n- Oui → Gestion Automatique par ASM (répartit automatiquement entre : Database Buffer Cache - DB_CACHE_SIZE, Large Pool - LARGE_POOL_SIZE, Shared Pool - SHARED_POOL_SIZE, Java Pool - JAVA_POOL_SIZE)\n- Non → Gestion manuelle",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Paramétrage SGA",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 52,
+      "page_end": 52,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_016",
+    "text": "Architecture-Instance — Paramétrer la taille SGA (suite) :\nAugmenter la taille de SGA.\nAffichage :\n```sql\nSelect COMPONENT,CURRENT_SIZE from V$MEMORY_DYNAMIC_COMPONENTS;\nSHOW PARAMETER sga;\nSelect * from v$sga;\n```\nTaille maximale :\n```sql\nALTER SYSTEM SET sga_max_size=tailleM SCOPE=SPFILE;\n```\nTaille souhaitée :\n```sql\nALTER SYSTEM SET sga_target=tailleM SCOPE=SPFILE;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Paramétrage SGA",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 53,
+      "page_end": 53,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_017",
+    "text": "Architecture-Instance — Shared Pool Area (SPA), zone mise en évidence dans le schéma de la SGA (Library Cache et Dictionary Cache en surbrillance, le reste des composants de la SGA grisé).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - SPA",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 54,
+      "page_end": 54,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_018",
+    "text": "Architecture-Instance — SPA (Shared Pool Area) :\nSPA : Shared Pool Area : zone de partage des requêtes et du dictionnaire Oracle.\nLa Shared Pool Area est la partie de la SGA qui est utilisée par Oracle pour partager les requêtes (Library Cache) et le dictionnaire de données (Dictionary Cache) entre les différents processus.\nLa Shared Pool est globalement dimensionnée par le paramètre SHARED_POOL_SIZE.\nLa répartition entre le Library Cache et le Dictionary Cache est assurée par Oracle.\nSchéma : SPA → Shared Pool Area (SPA) contenant Library Cache et Dictionary Cache = 40% de SGA.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - SPA",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 55,
+      "page_end": 55,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_019",
+    "text": "Architecture-Instance — SPA, composition :\nSe compose des données suivantes :\n- Les plans d'exécution et les résultats d'analyse des ordres venant des processus utilisateurs\n- Les procédures stockées (PL/SQL)\n- Les requêtes récursives (requêtes sur le dictionnaire)\n- Données du compte utilisateur\n- Noms des fichiers de données\n\nInformations sur les requêtes :\n- v$sqlarea (texte des requêtes)\n- v$librarycache (Requêtes partagées)\n- v$rowcache (Dictionnaire d'Oracle)\n\nSchéma : SPA → deux flèches, une vers l'encadré \"Se compose des données suivantes\", une vers l'encadré \"Informations sur les requêtes\".",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - SPA",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 56,
+      "page_end": 56,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_020",
+    "text": "Architecture-Instance — SPA, flux Dictionary Cache (schéma, page 57) :\nLe Processus Utilisateur (Client) envoie une Requête SQL et établit une Connexion vers le Processus Serveur. Le Processus Serveur communique avec la PGA (SQL Privé). Le Processus Serveur envoie le SQL en analyse vers les bases de données (Métadonnées), et consulte la SPA (Library Cache, Dictionary Cache).\nLes métadonnées consultées incluent : les contraintes d'intégrités, données du compte utilisateur, noms des fichiers de données, noms des segments de tables, descriptions des tables et privilèges utilisateur.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - SPA - Dictionary Cache",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 57,
+      "page_end": 57,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_021",
+    "text": "Architecture-Instance — Dictionary Cache (détail) :\n- Le cache du dictionnaire de données contient les dernières définitions utilisées dans la base.\n- Il contient des informations sur les fichiers, les tables, les index, les colonnes, les utilisateurs, les privilèges et d'autres objets de la base de données.\n- Au cours de l'analyse, le processus serveur recherche les informations dans le cache du dictionnaire pour résoudre les noms d'objet et valider l'accès.\n- La mise en mémoire cache des informations du dictionnaire de données réduit le temps de réponse aux interrogations et aux instructions LMD.\n- La taille du cache dépend du dimensionnement de la zone de mémoire partagée.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Dictionary Cache",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 58,
+      "page_end": 58,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_022",
+    "text": "Architecture-Instance — Optimisation du Dictionary Cache :\n- gets : Cumul des demandes d'informations sur l'élément\n- getmisses : Cumul des demandes manquées sur l'élément\n\n```sql\nSELECT sum(gets) \"Cumul des demandes\",\nsum(getmisses) \"Cumul des demandes manquées\",\nsum(getmisses) / (sum(gets)+sum(getmisses))*100 \"Rapport (R)\"\nFROM v$rowcache;\n```\nSi R <= 10% ou 15% → Bon (oui)\nSinon (Non) → augmenter la taille SHARED_POOL_SIZE :\n```sql\nalter system set shared_pool_size = 60M;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Dictionary Cache - Optimisation",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 59,
+      "page_end": 59,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_023",
+    "text": "Architecture-Instance — SPA, flux Library Cache (schéma, page 60) :\nLe Processus Utilisateur (Client) envoie une Requête SQL et ouvre une Session ouverte vers le Processus Serveur. Le Processus Serveur communique avec la PGA (SQL Privé), avec la SPA (Library Cache : SQL, Analyse, Exécution ; et Dictionary Cache), et avec les bases de données.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - SPA - Library Cache",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 60,
+      "page_end": 60,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_024",
+    "text": "Architecture-Instance — Library cache (détail) :\n- Le cache \"library\" conserve des informations sur les dernières instructions SQL et PL/SQL utilisées.\n- Il permet le partage des instructions fréquemment utilisées.\n- Il est composé de deux structures : la zone SQL partagée, la zone PL/SQL partagée.\n- Sa taille dépend du dimensionnement de la zone de mémoire partagée.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Library Cache",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 61,
+      "page_end": 61,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "ch3_025",
+    "text": "Architecture-Instance — Optimisation du Library cache :\n```sql\nSELECT sum(pins) \"Executions\", sum(reloads) \"Défaut de cache\",\nsum(reloads) / (sum(pins) + sum(reloads))*100 \"Rapport(R)\"\nFROM v$librarycache;\n```\n- reloads : défaut de lecture dans le cache de librairie d'exécutions (nombre de demandes infructueuses)\n- pins : nombre d'exécutions sans défaut de cache\n\nSi R <= 1% → Bon\nSinon → augmenter SHARED_POOL_SIZE :\n```sql\nalter system set shared_pool_size=tailleM;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Library Cache - Optimisation",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 62,
+      "page_end": 62,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_026",
+    "text": "Architecture-Instance — Database Buffer Cache, zone mise en évidence dans le schéma de la SGA (Database Buffer Cache = 50% de SGA en surbrillance, le reste grisé).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Database Buffer Cache",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 63,
+      "page_end": 63,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_027",
+    "text": "Architecture-Instance — Database Buffer Cache (détail) :\n- Le Database Buffer Cache est un cache de données qui joue le même rôle que la Shared Pool mais pour les données de la base.\n- Les données de la base ne sont accessibles, en lecture ou en mise à jour, qu'après avoir été chargées dans le Database Buffer Cache.\n- Généralement, augmenter la taille du Database Buffer Cache améliore les performances.\n- La taille du Database Buffer Cache est définie par la valeur du paramètre DB_BLOCK_BUFFERS qui fixe le nombre de buffers en mémoire, chaque buffer ayant une taille égale à DB_BLOCK_SIZE.\n```sql\nSelect COMPONENT,CURRENT_SIZE from V$MEMORY_DYNAMIC_COMPONENTS;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Database Buffer Cache",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 64,
+      "page_end": 64,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_028",
+    "text": "Architecture-Instance — Database Buffer Cache, formule d'efficacité :\nR = 1 - (Physical read / (db block gets + consistent gets))\nSi R > 60 ou 70% : les performances sont bonnes.\n- Physical read : nombre de lecture sur disque\n- db block gets + consistent gets : nombre total de lecture sur disque ou en mémoire.\nLa vue v$sysstat contient les statistiques générales sur les E/S physiques ou logiques :\n```sql\nSELECT name, value FROM v$sysstat\nWHERE name IN ('db block gets','consistent gets', 'physical reads');\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Database Buffer Cache - Formule",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 65,
+      "page_end": 65,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_029",
+    "text": "Architecture-Instance — Redo Log Buffer, zone mise en évidence dans le schéma de la SGA (Redo Log Buffer en surbrillance, le reste grisé).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Redo Log Buffer",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 66,
+      "page_end": 66,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_030",
+    "text": "Architecture-Instance — Redo Log Buffer (détail) :\n- Un processus utilisateur lance une commande DML\n- Le processus serveur écrit dans le redo log buffer l'image des lignes avant les modifications (before image)\n- Le processus serveur met à jour les lignes de données\n- Le processus serveur écrit dans le redo log buffer l'image qui suit la transaction (after image)\n- Les données du redo log buffer sont transcrites sur disque lorsque survient l'un des évènements suivants :\n  - Chaque fois qu'une période de trois secondes s'est écoulée\n  - Lors d'un commit\n  - L'expression MIN(1MB, LOG_BUFFER/3) est vérifiée\n  - ...\nSchéma : un bloc redo log buffer (xxxxxxxxxxxx) est transcrit, via l'événement « Commit », vers un bloc disque (xxxxxxxxxxxx / yyyyyyyyyyy) relié à un cylindre représentant le disque.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Redo Log Buffer",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 67,
+      "page_end": 67,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_031",
+    "text": "Architecture-Instance — Redo Log Buffer, optimisation :\nUn buffer Redo log trop petit entraîne des attentes.\nOptimisation du buffer Redo log :\n```sql\nSELECT name, value FROM v$sysstat WHERE name = 'redo log space requests'\n```\nSi value est très proche de 0 → OK (oui)\nSinon (non) → Si value croît souvent alors il y a attente.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Redo Log Buffer - Optimisation",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 68,
+      "page_end": 68,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_032",
+    "text": "Architecture-Instance — Java Pool, zone mise en évidence dans le schéma de la SGA (Java Pool en surbrillance, le reste grisé).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Java Pool",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 69,
+      "page_end": 69,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_033",
+    "text": "Architecture-Instance — Java Pool (détail) :\nCette zone est réservée aux programmes Java.\nL'installation des composants Java impose que cette zone soit configurée, les instructions Java s'y exécutent.\nDimensionné par le paramètre JAVA_POOL_SIZE.\n```sql\nalter system set JAVA_POOL_SIZE=4M;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Java Pool",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 70,
+      "page_end": 70,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_034",
+    "text": "Architecture-Instance — Streams Pool, zone mise en évidence dans le schéma de la SGA (Streams Pool en surbrillance, le reste grisé).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Streams Pool",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 71,
+      "page_end": 71,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_035",
+    "text": "Architecture-Instance — Streams Pool (détail) :\n(à partir de la Version 10), cette zone est réservée notamment lors de la réplication de données entre bases de données distantes.\nSchéma : une BD source → Streams Pool → une BD cible (« 4,8,12… » annoté à côté de la BD cible, illustrant une réplication périodique).\nDimensionné par le paramètre STREAMS_POOL_SIZE.\n```sql\nalter system set STREAMS_POOL_SIZE=4M;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Streams Pool",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 72,
+      "page_end": 72,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_036",
+    "text": "Architecture-Instance — Reserved Area, zone mise en évidence dans le schéma de la SGA (Reserved Area en surbrillance, le reste grisé).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Reserved Area",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 73,
+      "page_end": 73,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_037",
+    "text": "Architecture-Instance — Reserved Area (détail) :\nReserved Area (à partir de la version 7.3), c'est une zone réservée, destinée à l'enregistrement d'objets SQL de grande taille.\nSchéma : trois blocs — Packages, Procédures, Fonctions — représentant les types d'objets concernés.\nDimensionnée par le paramètre SHARED_POOL_RESERVED_SIZE / Automatique.\n```sql\n>sho parameter reserved\n>alter system set shared_pool_reserved_size=10m scope=spfile;\n>Startup force\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Reserved Area",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 74,
+      "page_end": 74,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "ch3_038",
+    "text": "Architecture-Instance — Large pool, zone mise en évidence dans le schéma de la SGA (Large pool en surbrillance, le reste grisé).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Large Pool",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 75,
+      "page_end": 75,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "ch3_039",
+    "text": "Architecture-Instance — Large Pool (détail) :\nLe DBA peut configurer une zone de la SGA appelée Large Pool pour soulager le Buffer de données ou la Zone des requêtes partagées pour certaines opérations gourmandes en mémoire.\n\nQue peut fournir la Large pool ? :\n- L'espace mémoire nécessaire pour les sessions gérées par les serveurs.\n- L'espace mémoire pour les transactions.\n- L'espace mémoire pour effectuer les Backup et Restauration\n- L'espace mémoire pour le traitement des requêtes parallèles\n\nDimensionnement de la Large POOL :\n```\n– Large_pool_size=valeur\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Chapitre 3 : Création d'une BD",
+      "subsection": "Architecture-Instance - Large Pool",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 76,
+      "page_end": 76,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_001",
+    "text": "Gestion des tablespaces. Année universitaire : 2025/2026. (Page de titre de section — Tablespaces).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Page de titre",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 77,
+      "page_end": 77,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "tbs_002",
+    "text": "Structure logique d'une base de données — Tablespaces.\nSchéma (page 78) — modèle entité-association (type MERISE) des structures physique et logique, avec cardinalités :\n- Structure logique (à gauche du trait pointillé rouge) : Schéma (1,1) → Base de données (1,1) ; Base de données ← Tablespace (1,n / 1,1) ; Tablespace ← Table, Index, Cluster, ... (0,n / 1,1) ; Table, Index, Cluster, ... ← Bloc Oracle (1,n / 1,1) ; Schéma ← Table, Index, Cluster, ... (1,n / 1,1).\n- Structure physique (à droite du trait pointillé rouge) : Tablespace ← Fichier (1,n / 1,1) ; Fichier ← Bloc OS (1,n / 1,1) ; Bloc Oracle ↔ Bloc OS (1,n / 1,1).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Structure logique - Modèle entité-association",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 78,
+      "page_end": 78,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "tbs_003",
+    "text": "Un tablespace est une organisation logique des données qui sont stockées physiquement dans des fichiers de données (datafiles).\nUn tablespace est constitué de segments contenant une ou plusieurs extensions (extents) :\n- Une extension est définie comme étant un ensemble de blocs oracle contigus\n- La création d'un segment dans un tablespace donne lieu à l'allocation d'une ou plusieurs extension(s) dans un des fichiers de données du tablespace",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Définition tablespace",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 79,
+      "page_end": 79,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "tbs_004",
+    "text": "Un tablespace gère des fichiers de données.\nDans un fichier de données, on peut avoir des segments sous forme de tables, index, vues, etc.\nUn segment est organisé sous forme d'extensions.\nUne extension contient des blocs de données ayant une taille de 2K, 4K, jusqu'à 64K.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Définition tablespace",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 80,
+      "page_end": 80,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "tbs_005",
+    "text": "Un tablespace est une unité logique de stockage composée d'un ou plusieurs fichier(s) physique(s).\nPour chaque base, il y a au moins un tablespace d'origine, appelé SYSTEM, qui contient le dictionnaire des Données (toutes les informations sur la base).\nUn tablespace peut être actif (online) ou bien désactivé (offline).\nUn tablespace correspond à un ou plusieurs fichiers physiques.\nUne table peut être créée dans un tablespace qui s'étend sur plusieurs fichiers physiques.\nUn tablespace peut être TEMPORARY ou PERMANENT (mode par défaut).\nUn tablespace temporaire contient des données temporaires liées aux opérations de tri par exemple.\nUn tablespace peut être réservé pour contenir des données d'annulation ROLLBACK : UNDO TABLESPACE (segments d'annulations).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Caractéristiques du tablespace",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 81,
+      "page_end": 81,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "tbs_006",
+    "text": "Structure logique d'une base de données — Création d'une base de données :\n```sql\ncreate database dba1\nuser sys identified by sysdba\nuser system identified by sysdba\nlogfile group 1 ('e:\\dba\\redo01.log') size 100M,\ngroup 2 ('e:\\dba\\redo02.log') size 100M,\ngroup 3 ('e:\\dba\\redo03.log') size 100M\nmaxlogfiles 4\nmaxlogmembers 3\nmaxdatafiles 20\nmaxinstances 1\ndatafile 'e:\\dba\\system011.dbf' size 100M\nsysaux datafile 'e:\\dba\\system022.dbf' size 100M\n```\n(tablespace auxiliaire en cas d'anomalies au niveau de la tablespace system)\n```sql\nundo tablespace undotbs01\ndatafile 'e:\\dba\\undo1.dbf' size 100M\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Création d'une base de données",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 82,
+      "page_end": 82,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_007",
+    "text": "Pourquoi un tablespace ? :\n- Pour séparer les données de l'application des données du dictionnaire oracle\n- Séparer les données de plusieurs applications stockées dans la même base de données\n- Séparer le stockage de différents types d'objets\n- Répartir les entrées et les sorties sur plusieurs disques\n- Réaliser l'opération de sauvegarde et de restauration de façon partielle\n- Contrôler la disponibilité de données\n- Contrôler l'allocation des espaces disques aux utilisateurs via des quotas\n- Augmenter la disponibilité de données (arrêt partiel d'une base via l'arrêt d'un tablespace)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Pourquoi un tablespace",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 83,
+      "page_end": 83,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "tbs_008",
+    "text": "État d'un tablespace ? :\n- Par défaut ONLINE à la création\n- Peut être mis OFFLINE\n- Peut être sauvegardé et restauré sans arrêter la base entière\n- Il est créé explicitement par l'administrateur\n- Peut être mis READ ONLY",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "État d'un tablespace",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 84,
+      "page_end": 84,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "tbs_009",
+    "text": "Création d'un tablespace permanent :\n```sql\nCREATE [ BIGFILE | SMALLFILE ] TABLESPACE TS_nom\nDATAFILE 'nom_fichier'[ SIZE valeur [k|M|G|T] [REUSE]\nAUTOEXTEND { OFF | ON [ NEXT valeur [K|M|G|T]]\nMAXSIZE { UNLIMITED | valeur [K|M|G|T] } ] }\nEXTENT MANAGEMENT LOCAL { AUTOALLOCATE | UNIFORM [ SIZE [[K|M|G|T]]}\nSEGMENT SPACE MANAGEMENT { MANUEL | AUTO }\n[ BLOCKSIZE valeur (K) (! Il faut mettre la même taille de la mémoire database buffer cache !) ]\n[ LOGGING | NOLOGGING ] : (fichiers journalisés dans le fichier de journalisation ou pas)\n[ONLINE | OFFLINE];\n```\n!! reuse option is for reusing a datafile which is not assigned to any tablespace or database.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Création d'un tablespace permanent",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 85,
+      "page_end": 85,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_010",
+    "text": "Tablespace par défaut :\nLorsqu'un utilisateur crée un segment sans préciser le tablespace, oracle stocke par défaut le segment dans le tablespace utilisateur.\nExemple :\n```sql\nAlter database default tablespace data;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Tablespace par défaut",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 86,
+      "page_end": 86,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_011",
+    "text": "Tablespace par défaut — retrouver le nom du tablespace permanent par défaut :\n- Interroger la vue database_properties\n- Afficher la valeur de la propriété : default_permanent_tablespace\n\nSyntaxe :\n```sql\nselect property_value from database_properties where\nproperty_name='default_permanent_tablespace';\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Tablespace par défaut",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 87,
+      "page_end": 87,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_012",
+    "text": "Modifier un tablespace permanent — Ajouter un fichier de données :\n```sql\nAlter tablespace nom\nADD datafile spécification_fichier_data[…..,];\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Modifier un tablespace permanent",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 88,
+      "page_end": 88,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_013",
+    "text": "Modifier un tablespace permanent — Modifier la taille du fichier rattaché au tablespace :\n```sql\nAlter database nom\nDATAFILE numéro_fichier[,…..] resize valeur [k|M|G|T];\n\nAlter tablespace nom_tablespace_bigfile resize valeur [k|M|G|T];\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Modifier un tablespace permanent",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 89,
+      "page_end": 89,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_014",
+    "text": "Allocation d'un tablespace à un objet :\n```sql\ncreate table client ( id_client number(6), nom varchar(20)) tablespace data;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Allocation d'un tablespace à un objet",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 90,
+      "page_end": 90,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_015",
+    "text": "Modifier un tablespace permanent — Passer un tablespace offline/online :\n```sql\nAlter tablespace nom [ONLINE|OFFLINE];\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Modifier un tablespace permanent",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 91,
+      "page_end": 91,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_016",
+    "text": "Modifier un tablespace permanent — Modifier un fichier rattaché au tablespace :\n1. Mettre le tablespace offline :\n```sql\nalter tablespace nom_ts offline;\n```\n2. Déplacer le fichier vers le nouvel emplacement : Copier + coller\n3. Indiquer à oracle le nouvel emplacement :\n```sql\nalter database rename file ancien_endroit to nouveau_endroit\n```\n4. Mettre le tablespace online :\n```sql\nalter tablespace nom_ts online;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Modifier un tablespace permanent",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 92,
+      "page_end": 92,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_017",
+    "text": "Supprimer un tablespace permanent :\n```sql\nDrop tablespace nom [including contents|and datafiles]\n[cascade constraints];\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Supprimer un tablespace permanent",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 93,
+      "page_end": 93,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_018",
+    "text": "Supprimer un fichier d'un tablespace :\n- Supprimer un fichier de données d'un tablespace s'effectue avec l'ordre sql ALTER TABLESPACE\n- Le fichier de données doit être vide (ne doit contenir aucune extension)\n- Le fichier de données ne peut pas être le premier fichier de données créé pour le tablespace\n- Le fichier de données ne doit pas appartenir à un tablespace en mode lecture seule (read only) / lecture et écriture (read write)\n- Le fichier de données doit être en ligne (online)\n- Le fichier ne doit pas appartenir au tablespace system\n```sql\nAlter tablespace nom drop datafile 'nom_complet';\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Supprimer un fichier d'un tablespace",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 94,
+      "page_end": 94,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_019",
+    "text": "Tablespace UNDO :\nLe tablespace UNDO, comme son nom l'indique, est réservé exclusivement à l'annulation des commandes DML (update, insert, etc.).\n\nCréation du tablespace UNDO :\n```sql\nCREATE undo tablespace undotbs\ndatafile 'g:\\oracle\\xe\\undotbs.dbf' size 100M;\n```\n\nModification du tablespace UNDO utilisé :\n```sql\nAlter system\nSet undo_tablespace=undotbs;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Tablespace UNDO",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 95,
+      "page_end": 95,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_020",
+    "text": "Création d'un tablespace temporaire :\nLe tablespace temporaire héberge les segments temporaires issus des requêtes et des commandes telles que :\n- Select … order by, select … group by, select distinct ….\n- Les requêtes ensemblistes (union, minus, intersect)\n- Les jointures (join)\n\nCréation du tablespace temporaire :\n```sql\nCREATE [ BIGFILE | SMALLFILE ] temporary TABLESPACE TS_nom\nDATAFILE 'nom_fichier'[ SIZE valeur [k|M|G|T] [REUSE]\nAUTOEXTEND { OFF | ON [ NEXT valeur [K|M|G|T]]\nMAXSIZE { UNLIMITED | valeur [K|M|G|T] } ] }\nEXTENT MANAGEMENT LOCAL { AUTOALLOCATE | UNIFORM [ SIZE [[K|M|G|T]]}\nSEGMENT SPACE MANAGEMENT { MANUEL | AUTO }\n[ BLOCKSIZE valeur (K) (! Il faut mettre la même taille de la mémoire database buffer cache !) ]\n[ LOGGING | NOLOGGING ] : (fichiers journalisés dans le fichier de journalisation ou pas)\n[ONLINE | OFFLINE];\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Création d'un tablespace temporaire",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 96,
+      "page_end": 96,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "tbs_021",
+    "text": "Vues du dictionnaire de données (tablespaces) :\nPlusieurs vues du dictionnaire de données permettant d'obtenir des informations sur les tablespaces et les fichiers de données :\n- Dba_tablespace : informations sur les tablespaces\n- V$tablespace : informations sur les tablespaces (à partir du fichier de contrôle)\n- Dba_temp_files : informations sur les fichiers de données des tablespaces temporaires gérés localement\n- V$tempfiles : informations sur les fichiers de données des tablespaces temporaires gérés localement",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des tablespaces",
+      "subsection": "Vues du dictionnaire de données",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 97,
+      "page_end": 97,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "usr_001",
+    "text": "Administration des bases de données — gestion des utilisateurs. Année universitaire : 2025/2026. (Page de titre de section — Gestion des utilisateurs).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Page de titre",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 98,
+      "page_end": 98,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "usr_002",
+    "text": "Création des utilisateurs — étapes :\n- Choisir un nom d'utilisateur\n- Choisir une méthode d'authentification\n- Choisir les tablespaces que l'utilisateur pourra utiliser\n- Choisir les quotas sur chaque tablespace\n- Définir les tablespaces par défaut de l'utilisateur\n- Assigner les rôles et privilèges à l'utilisateur",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Création des utilisateurs",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 99,
+      "page_end": 99,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "usr_003",
+    "text": "Authentification par la BD :\nCe mode est le plus courant.\nLe mot de passe par défaut.\nL'authentification est réalisable via le mot de passe stocké dans la BD.\n```sql\nCREATE USER scott IDENTIFIED BY 1234\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Authentification par la BD",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 100,
+      "page_end": 100,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_004",
+    "text": "Authentification par l'OS (système d'exploitation) :\nCe mode permettra à oracle de se baser sur l'authentification de l'utilisateur par le système d'exploitation.\n```sql\nCREATE USER scott IDENTIFIED BY EXTERNALLY\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Authentification par l'OS",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 101,
+      "page_end": 101,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_005",
+    "text": "Paramètres de création d'un utilisateur :\n```sql\nCREATE USER user\nIDENTIFED BY {password | EXTERNALLY}\n[Default TABLESPACE tablespace]\n[Temporary TABLESPACE tablespace]\n[QUOTA {interger [k|M|UNLIMITED]} ON tablespace\n[password expire]\n[ACCOUNT {lock(désactivé)|unlock}]\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Paramètres de création d'un utilisateur",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 102,
+      "page_end": 102,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_006",
+    "text": "Modification d'un utilisateur — Modification d'un mot de passe :\n```sql\nALTER USER <login utilisateur> identified by <nouveau mot de passe>\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Modification d'un utilisateur",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 103,
+      "page_end": 103,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_007",
+    "text": "Modification d'un utilisateur — Modification des quotas :\n```sql\nALTER USER <login utilisateur>\nquota 15M on tablesapce1\nQuota 5M on tablesapace2;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Modification d'un utilisateur",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 104,
+      "page_end": 104,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_008",
+    "text": "Suppression d'un utilisateur :\nSupprimer un utilisateur avec un schéma vide :\n```sql\nDrop user test;\n```\nSupprimer un utilisateur avec son schéma (non vide) :\n```sql\nDrop user test cascade;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Suppression d'un utilisateur",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 105,
+      "page_end": 105,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_009",
+    "text": "Des informations sur les utilisateurs :\n- Descriptif de la vue dba_users\n- Descriptif de la vue dba_ts_quotas",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Vues sur les utilisateurs",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 106,
+      "page_end": 106,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "usr_010",
+    "text": "Rôles et privilèges :\nSécuriser l'accès aux données de la BD.\nDeux types de privilèges :\n- Privilèges de niveau système\n- Privilèges de niveau objet",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Rôles et privilèges",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 107,
+      "page_end": 107,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "usr_011",
+    "text": "Attribution des privilèges système à un utilisateur — syntaxe (diagramme syntaxique / railroad diagram, page 108) :\n```\nGRANT { system_privilege | role | ALL PRIVILEGES }[, ...]\nTO { user | role | PUBLIC }[, ...]\n[ WITH ADMIN OPTION ];\n```\nLe schéma illustre les branches possibles : après GRANT, on choisit system_privilege, role, ou ALL PRIVILEGES (répétable via une boucle) ; puis TO, suivi de user, role, ou PUBLIC (répétable) ; en option finale, WITH ADMIN OPTION.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges système",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 108,
+      "page_end": 108,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "usr_012",
+    "text": "Attribution des privilèges système à un utilisateur — Exemples :\n```sql\nGRANT CREATE SESSION TO nom_utilisateur ;\n\nGRANT CREATE TABLE TO nom_utilisateur ;\n\nGRANT CREATE VIEW TO nom_utilisateur ;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges système",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 109,
+      "page_end": 109,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_013",
+    "text": "Attribution des privilèges système à un utilisateur — Tableau des privilèges DATABASE et SESSIONS :\n\n| Privilège | Description |\n|---|---|\n| DATABASE | |\n| ALTER DATABASE | Modification de la base |\n| ALTER SYSTEM | Autorise l'instruction ALTER SYSTEM |\n| SESSIONS | |\n| CREATE SESSION | Connexion à la base |\n| ALTER SESSION | Permet l'instruction ALTER SESSION |",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges système",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 110,
+      "page_end": 110,
+      "content_type": "table"
+    }
+  },
+  {
+    "chunk_id": "usr_014",
+    "text": "Attribution des privilèges système à un utilisateur — Tableau des privilèges TABLES :\n\n| Privilège | Description |\n|---|---|\n| CREATE TABLE | Création de tables dans le schéma |\n| CREATE ANY TABLE | Création de tables dans n'importe quel schéma |\n| ALTER ANY TABLE | Modification de tables ou vues dans n'importe quel schéma |\n| DROP ANY TABLE | Suppression de tables dans n'importe quel schéma |",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges système",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 111,
+      "page_end": 111,
+      "content_type": "table"
+    }
+  },
+  {
+    "chunk_id": "usr_015",
+    "text": "Attribution des privilèges système à un utilisateur — Tableau des privilèges TABLESPACES :\n\n| Privilège | Description |\n|---|---|\n| CREATE TABLESPACE | Création de tablespace |\n| ALTER TABLESPACE | Modification de tablespace |\n| DROP TABLESPACE | Suppression de tablespace |\n| UNLIMITED TABLESPACE | Quota illimité sur le tablespace |",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges système",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 112,
+      "page_end": 112,
+      "content_type": "table"
+    }
+  },
+  {
+    "chunk_id": "usr_016",
+    "text": "Attribution des privilèges objet à un utilisateur — syntaxe (diagramme syntaxique / railroad diagram, page 113) :\n```\nGRANT { object_privilege | ALL PRIVILEGES }[(column)][, ...]\nON [schema.]object\nTO { user | role | PUBLIC }[, ...]\n[ WITH GRANT OPTION ];\n```\nLe schéma illustre : après GRANT, object_privilege ou ALL PRIVILEGES, avec une colonne optionnelle entre parenthèses (répétable) ; puis ON schema.object ; puis TO user, role, ou PUBLIC (répétable) ; en option finale, WITH GRANT OPTION.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges objet",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 113,
+      "page_end": 113,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "usr_017",
+    "text": "Attribution des privilèges objet à un utilisateur — Exemple :\n```sql\nGRANT\n  SELECT\n  ,INSERT\n  ,UPDATE\n  ,DELETE\n  ON SYS.client\nTO nom_utilisateur ;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges objet",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 114,
+      "page_end": 114,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_018",
+    "text": "Attribution des privilèges objet à un utilisateur — Exemple sur colonnes spécifiques :\n```sql\nGRANT\n  UPDATE ( nom, prenom )\n  ON SYS.client\nTO nom_utilisateur ;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges objet",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 115,
+      "page_end": 115,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_019",
+    "text": "Attribution des privilèges objet à un utilisateur — Tableau des privilèges TABLES (niveau objet) :\n\n| Privilège | Description |\n|---|---|\n| ALTER | Modifier la définition d'une table |\n| DELETE | Supprimer des lignes de la table |\n| INSERT | Insertion de lignes dans la table |\n| REFERENCES | Création d'une contrainte d'intégrité |\n| SELECT | Interrogation d'une table |\n| UPDATE | Mise à jour de la table |",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Attribution des privilèges objet",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 116,
+      "page_end": 116,
+      "content_type": "table"
+    }
+  },
+  {
+    "chunk_id": "usr_020",
+    "text": "Créer des rôles et leur assigner des privilèges — syntaxe (diagramme syntaxique / railroad diagram, page 117) :\n```\nCREATE ROLE role [ NOT IDENTIFIED | IDENTIFIED BY password ] ;\n```\nLe schéma illustre : après CREATE ROLE role, un choix entre NOT IDENTIFIED ou IDENTIFIED BY password.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Créer des rôles",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 117,
+      "page_end": 117,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "usr_021",
+    "text": "Créer des rôles et leur assigner des privilèges — Exemple :\n```sql\nCreate role compta;\nGrant insert,update, delete on client to compta;\nGrant insert,update, delete on fournisseur to compta;\nGrant compta to nom_utilisateur;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Créer des rôles",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 118,
+      "page_end": 118,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "usr_022",
+    "text": "Oracle Administration Oracle - Gestion des profiles. (Page de titre de sous-section, dernière page du support visible dans cet extrait).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des utilisateurs",
+      "subsection": "Gestion des profiles - Page de titre",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 119,
+      "page_end": 119,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_001",
+    "text": "Gestion des profiles.\nÀ la fin de cette partie, vous pourrez :\n- Gérer les mots de passe à l'aide de profils\n- Administrer des profils\n- Contrôler l'utilisation des ressources à l'aide de profils\n- Obtenir des informations sur les profils, la gestion des mots de passe et les ressources",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Objectifs de la partie",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 120,
+      "page_end": 120,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_002",
+    "text": "Profils :\n- Un profil est un ensemble nommé contenant les limites relatives aux mots de passe et aux ressources.\n- La commande CREATE USER ou ALTER USER permet d'affecter des profils aux utilisateurs.\n- Les profils peuvent être activés ou désactivés.\n- Par défaut, affectation du profil DEFAULT.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Définition d'un profil",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 121,
+      "page_end": 121,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_003",
+    "text": "Utilisateurs et sécurité — Schéma en roue « Domaine de sécurité » (page 122), centré sur « Domaine de sécurité », divisé en 8 segments :\n- Verrouillage de compte\n- Tablespace par défaut\n- Mécanisme d'authentification\n- Tablespace temporaire\n- Privilèges de rôle\n- Quotas de tablespace\n- Privilèges directs\n- Limites relatives aux ressources (segment mis en évidence en orange, les 7 autres en vert)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Utilisateurs et sécurité",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 122,
+      "page_end": 122,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "prof_004",
+    "text": "Gestion des mots de passe — Schéma (page 123) : un poste « Configurer des profils » (icône ordinateur) est relié par une flèche vers un « Utilisateur » (icône personne à un bureau), en passant par 4 aspects illustrés autour de la flèche :\n- Historique des mots de passe (icône classeurs)\n- Verrouillage d'un compte (icône cadenas)\n- Durée de vie et expiration des mots de passe (icône réveil)\n- Vérification des mots de passe (icône point d'interrogation)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Gestion des mots de passe",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 123,
+      "page_end": 123,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "prof_005",
+    "text": "Activer la gestion des mots de passe :\n- Configurez la gestion des mots de passe à l'aide de profils que vous affecterez aux utilisateurs.\n- Verrouillez, déverrouillez et faites expirer des comptes à l'aide de la commande CREATE USER ou ALTER USER.\n- Les limites relatives aux mots de passe sont toujours appliquées.\n- Pour activer la gestion des mots de passe, exécutez le script utlpwdmg.sql (%oracle_home%\\RDBMS\\ADMIN) sous le nom utilisateur SYS.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Activer la gestion des mots de passe",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 124,
+      "page_end": 124,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_006",
+    "text": "Gestion des profils — Augmenter la sécurité de la base de données. Schéma arborescent (page 125) à deux branches :\n- Limitation des mots de passe : Nombre de tentatives de connexion ; Le temps de verrouillage d'un compte\n- Limitation des ressources système : Éviter une surcharge inutile du serveur",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Augmenter la sécurité",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 125,
+      "page_end": 125,
+      "content_type": "diagram"
+    }
+  },
+  {
+    "chunk_id": "prof_007",
+    "text": "Gestion des profils — Création d'un profil :\nUn PROFIL est un ensemble de limitations système :\n- Les limitations du mot de passe\n- Les limitations des ressources système",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Création d'un profil",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 126,
+      "page_end": 126,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_008",
+    "text": "Gestion des profils — Les limitations du mot de passe :\n\nFAILED_LOGIN_ATTEMPTS : Ce paramètre permet de définir le nombre maximal de tentatives de connexion. Si le nombre de connexion donné par le paramètre FAILED_LOGIN_ATTEMPTS est atteint, le compte sera alors verrouillé pendant une période donnée par le paramètre PASSWORD_LOCK_TIME.\n\nPASSWORD_LOCK_TIME : Ce paramètre permettra de définir la durée de verrouillage du compte utilisateur après avoir bloqué le compte avec le paramètre FAILED_LOGIN_ATTEMPTS. Le compte sera alors automatiquement déverrouillé lorsque le temps défini par ce paramètre sera atteint. Ce paramètre sera défini en jours (vous pouvez aussi spécifier un nombre de minutes ou heure, par exemple 30 minutes donnera 30/1440) ou pourra avoir la valeur UNLIMITED (pour un verrouillage définitif et donc une action d'un administrateur pour débloquer le compte).",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Limitations du mot de passe",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 127,
+      "page_end": 127,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_009",
+    "text": "Gestion des profils — Les limitations du mot de passe (suite) :\n\nPASSWORD_LIFE_TIME : Ce paramètre permet de définir la durée d'utilisation du même mot de passe. Ce paramètre devra être défini en jours. Une fois la date limite d'utilisation atteinte, Oracle demandera alors automatiquement à l'utilisateur de bien vouloir changer son mot de passe.\n\nPASSWORD_GRACE_TIME : Période de grâce, en jours, pendant laquelle l'utilisateur peut changer de mot de passe après la première connexion établie une fois le mot de passe expiré.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Limitations du mot de passe",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 128,
+      "page_end": 128,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_010",
+    "text": "Gestion des profils — Les limitations du mot de passe (suite) :\n\nSESSIONS_PER_USER : Ce paramètre va vous permettre de définir le nombre de session maximum qu'un utilisateur pourra ouvrir.\n\nCONNECT_TIME : Ce paramètre va vous permettre de définir le temps en minutes pour la durée de connexion maximale d'une session. À la fin du temps imparti, la session sera automatiquement déconnectée.\n\nIDLE_TIME : Ce paramètre va vous permettre de définir le temps en minutes pour la durée d'inactivité maximale d'une session. À la fin du temps imparti, la session sera automatiquement déconnectée.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Limitations du mot de passe",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 129,
+      "page_end": 129,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_011",
+    "text": "Gestion des profils — Les limitations du mot de passe (suite) :\n\nLOGICAL_READS_PER_SESSION : Ce paramètre va vous permettre de définir le nombre maximal de bloc lus durant une session. On parlera ici des blocs lus sur le disque et dans la mémoire.\n\nPRIVATE_SGA : Ce paramètre va vous permettre de définir la taille en Kbytes ou MBytes que pourra utiliser une session.",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Limitations du mot de passe",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 130,
+      "page_end": 130,
+      "content_type": "text"
+    }
+  },
+  {
+    "chunk_id": "prof_012",
+    "text": "Gestion des profils — Démarche :\n- Créer le profil\n- Établir les limitations de mot de passe et les limitations système.\n- Attribuer le profil aux utilisateurs qui devront être limités :\n```sql\nALTER USER user PROFILE profile_user\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Démarche",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 131,
+      "page_end": 131,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "prof_013",
+    "text": "Gestion des profils — Exemple :\n```sql\nCREATE PROFILE app_user\nLIMIT\nFAILED_LOGIN_ATTEMPTS   3\nPASSWORD_LOCK_TIME 10\nSESSIONS_PER_USER      UNLIMITED\nCONNECT_TIME            45\nLOGICAL_READS_PER_SESSION  DEFAULT\nPRIVATE_SGA           15M ;\n```",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Exemple de création de profil",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 132,
+      "page_end": 132,
+      "content_type": "code"
+    }
+  },
+  {
+    "chunk_id": "prof_014",
+    "text": "Gestion des profils — Liste des profiles :\nAfficher les limitations existantes :\n```sql\nselect profile,resource_name,limit from dba_profiles\n```\nAfficher le profile appliqué à un utilisateur :\n```sql\nselect username, profile from dba_users where\nusername='nom_utilisateur'\n```\n(Dernière page du document.)",
+    "metadata": {
+      "language": "fr",
+      "title": "Architecture de SGBD Oracle et la structure de la base de données",
+      "section": "Gestion des profiles",
+      "subsection": "Liste des profiles",
+      "source": "Cours_Oracle_Complet.pdf",
+      "page_start": 133,
+      "page_end": 133,
+      "content_type": "code"
+    }
   }
 ]

@@ -20,4 +20,3 @@ Thumbs.db
 data/processed/chunks/*.jsonl
 data/processed/evaluation/*.json
 
-README.md

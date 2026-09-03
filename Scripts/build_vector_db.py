@@ -5,15 +5,15 @@ from src.vector_store.faiss_store import FAISSVectorStore
 
 
 EMBEDDINGS_PATH = (
-    "data/processed/embeddings/PSQL_embeddings.jsonl" # OR ORACLE
+    "data/processed/embeddings/Oracle_embeddings.jsonl" # OR ORACLE
 )
 
 INDEX_PATH = (
-    "data/processed/embeddings/plsql.index"
+    "data/processed/embeddings/oracle.index"
 )
 
 DOCUMENTS_PATH = (
-    "data/processed/embeddings/plsql_documents.json"
+    "data/processed/embeddings/oracle_documents.json"
 )
 
 def load_embeddings(path):

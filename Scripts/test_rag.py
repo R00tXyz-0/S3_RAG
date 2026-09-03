@@ -14,7 +14,7 @@ rag = RAGPipeline(
 )
 
 
-query = "Où se trouve des informations sur les fichiers de contrôles ? "
+query = "Création du dictionnaire de données"
 
 result = rag.ask(query, top_k=5)
 

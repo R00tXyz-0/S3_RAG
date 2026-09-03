@@ -4,11 +4,11 @@ from src.retrieval.retriever import Retriever
 MODEL_NAME = "sentence-transformers/all-mpnet-base-v2"
 
 INDEX_PATH = (
-    "data/processed/embeddings/plsql.index"
+    "data/processed/embeddings/oracle.index"
 )
 
 DOCUMENTS_PATH = (
-    "data/processed/embeddings/plsql_documents.json"
+    "data/processed/embeddings/oracle_documents.json"
 )
 
 
@@ -20,7 +20,7 @@ def main():
         model_name=MODEL_NAME
     )
 
-    query = "Structures de contrôle ?"
+    query = "Création du dictionnaire de données"
 
     results = retriever.retrieve(
         query,
